@@ -1,0 +1,22 @@
+<div class="container-sm">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Idade</th>
+            <th scope="col">Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let pessoa of lista">
+            <td *ngIf="pessoa.idade > 30">{{pessoa.nome}}</td>
+            <td *ngIf="pessoa.idade > 30">{{pessoa.idade}}</td>
+            <td *ngIf="pessoa.idade > 30"><input routerLink="/admin/pessoas/editar/{{pessoa.id}}" type="button" value="editar"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <input routerLink="/admin/pessoas/novo" type="button" value="Nova Pessoa">
+    </div>
+</div>
+

@@ -1,0 +1,21 @@
+<div class="container-sm">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Autor</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let livro of lista">
+            <td>{{livro.autor}}</td>
+            <td>{{livro.titulo}}</td>
+            <td><input  routerLink="/admin/livros/editar/{{livro.id}}" type="button" value="editar"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <input routerLink="/admin/livros/novo" type="button" value="Nova Livro">
+    </div>
+</div>
