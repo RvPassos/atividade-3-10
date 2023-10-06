@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Carro } from '../carros';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Livros } from 'src/app/livros/livros';
+import { CarroServiceService } from '../carro-service.service';
 
 @Component({
   selector: 'app-carroslist',
@@ -10,26 +13,37 @@ export class CarroslistComponent {
 
   lista: Carro[] = [];
 
+  modalService = inject(NgbModal);
+  bd = inject(CarroServiceService);
+
+  carroSelecionado!: Carro;
+  indiceSelect!: number;
+
   constructor(){
-    let carro1: Carro = new Carro();
-    carro1.id = 1;
-    carro1.nome = "gol";
-    carro1.ano = 2008;
+    this.lista = this.bd.lista;
+  }
 
-    let carro2: Carro = new Carro();
-    carro2.id = 2;
-    carro2.nome = "monza";
-    carro2.ano = 1999;
+  abrirModal(content: any){
+    this.modalService.open(content, { size: 'lg'})
+  }
 
-    let carro3: Carro = new Carro();
-    carro3.id = 3;
-    carro3.nome = "carro";
-    carro3.ano = 1921;
+  abrirModalEditar(editar:any, carro:Carro, indice:number){
+    this.indiceSelect = indice;
+    this.carroSelecionado = carro;
+    this.modalService.open(editar, {size: 'lg'})
+  }
 
+  addLista(carro: Carro){
+    if(carro.id > 0){
+      this.lista[this.indiceSelect] = carro;
+    } else {
+      this.adicionarCarro(carro.nome, carro.ano);
+    }
+    this.modalService.dismissAll();
+  }
 
-    this.lista.push(carro1);
-    this.lista.push(carro2);
-    this.lista.push(carro3);
+  adicionarCarro(nome:string, ano:number){
+    this.bd.adicionarPessoa(nome, ano);
   }
 
 }

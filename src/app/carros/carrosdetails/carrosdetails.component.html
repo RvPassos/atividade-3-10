@@ -4,13 +4,13 @@
         <legend>Cadastre um carro</legend>
         <div class="mb-3">
             <label for="disabledTextInput" class="form-label">Nome</label>
-            <input type="text" id="disabledTextInput" class="form-control">
+            <input type="text" name="nome" class="form-control" [(ngModel)]="carro.nome">
         </div>
         <div class="mb-3">
             <label for="disabledTextInput" class="form-label">Ano</label>
-            <input type="text" id="disabledTextInput" class="form-control">
+            <input type="number" name="ano" class="form-control" [(ngModel)]="carro.ano">
         </div>
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <button (click)="addEmitLista()" class="btn btn-primary">Salvar</button>
         </fieldset>
     </form>
 </div>

@@ -14,14 +14,8 @@ const routes: Routes = [
   { path: "login", component: LoginComponent},
   { path: "admin", component: IndexComponent, children: [
     { path: "pessoas", component: PessoalistComponent},
-    { path: "pessoas/novo", component: PessoasdetailsComponent},
-    { path: "pessoas/editar/:id", component: PessoasdetailsComponent},
     { path: "carros", component: CarroslistComponent},
-    { path: "carros/novo", component: CarrosdetailsComponent},
-    { path: "carros/editar/:id", component: CarrosdetailsComponent},
-    { path: "livros", component: LivroslistComponent},
-    { path: "livros/novo", component: LivrosdetailsComponent},
-    { path: "livros/editar/:id", component: LivrosdetailsComponent}
+    { path: "livros", component: LivroslistComponent}
   ]}
 ];
 

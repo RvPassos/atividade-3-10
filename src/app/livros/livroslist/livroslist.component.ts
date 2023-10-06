@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Livros } from '../livros';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LivroServiceService } from '../livro-service.service';
 
 @Component({
   selector: 'app-livroslist',
@@ -10,36 +12,39 @@ export class LivroslistComponent {
 
   lista: Livros[] = [];
 
+  modalService = inject(NgbModal);
+  bd = inject(LivroServiceService);
+
+  livroSelecionado!: Livros;
+  indiceSelect!: number;
+
   constructor(){
+    this.lista = this.bd.lista;
+  }
+
+  abrirModal(content: any){
+    this.livroSelecionado = new Livros(0, "", "");
+    this.modalService.open(content, { size: 'lg'});
+  }
+
+  abrirModalEditar(editar:any, livro: Livros, indice: number){
+    this.indiceSelect = indice;
+    this.livroSelecionado = livro;
+    this.modalService.open(editar, {size: 'lg'});
+  }
+
+  addLista(livro: Livros){
     
-    let livro1: Livros = new Livros();
-    livro1.id = 1
-    livro1.autor = "Antoine"
-    livro1.titulo = "Pequeno principe"
+    if(livro.id > 0){
+      this.lista[this.indiceSelect] = livro;
+    } else {
+      this.adicionarLivro(livro.autor, livro.titulo);
+    }
+    this.modalService.dismissAll();
+  }
 
-    let livro2: Livros = new Livros();
-    livro2.id = 2
-    livro2.autor = "Nietzsche"
-    livro2.titulo = "Assim falou zaratustra"
-
-    let livro3: Livros = new Livros();
-    livro3.id = 3
-    livro3.autor = "Shakespeare"
-    livro3.titulo = "Romeu e Julieta"
-
-
-    let livro4: Livros = new Livros();
-    livro4.id = 4
-    livro4.autor = "Pedro Henrique"
-    livro4.titulo = "é tamo junto"
-
-
-    this.lista.push(livro1);
-    this.lista.push(livro2);
-    this.lista.push(livro3);
-    this.lista.push(livro4);
-
-
+  adicionarLivro(autor: string, titulo: string){
+    this.bd.adicionarLivro(autor, titulo);
   }
 
 }

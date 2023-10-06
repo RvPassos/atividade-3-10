@@ -3,7 +3,9 @@ export class Livros {
     titulo!: string
     autor!: string
 
-    getId():number {
-        return this.id;
+    constructor(id:number, autor:string, titulo:string){
+        this.id = id;
+        this.autor = autor;
+        this.titulo = titulo;
     }
 }

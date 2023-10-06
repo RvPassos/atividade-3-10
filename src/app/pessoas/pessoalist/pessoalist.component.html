@@ -2,21 +2,36 @@
     <table class="table">
         <thead>
         <tr>
+            <th scope="col">Id</th>
             <th scope="col">Nome</th>
             <th scope="col">Idade</th>
             <th scope="col">Ação</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let pessoa of lista">
-            <td *ngIf="pessoa.idade > 30">{{pessoa.nome}}</td>
-            <td *ngIf="pessoa.idade > 30">{{pessoa.idade}}</td>
-            <td *ngIf="pessoa.idade > 30"><input routerLink="/admin/pessoas/editar/{{pessoa.id}}" type="button" value="editar"></td>
+        <tr *ngFor="let pessoa of lista; let i = index">
+            <td>{{pessoa.id}}</td>
+            <td>{{pessoa.nome}}</td>
+            <td>{{pessoa.idade}}</td>
+            <td><input type="button" value="editar" (click)="abrirModalEditar(content, pessoa, i)"></td>
         </tr>
         </tbody>
     </table>
     <div>
-        <input routerLink="/admin/pessoas/novo" type="button" value="Nova Pessoa">
+        <input (click)="abrirModal(content)" type="button" value="Nova Pessoa">
     </div>
 </div>
 
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Pessoa</h4>
+        <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')">
+        </button>
+        </div><div class="modal-body">
+            
+            <app-pessoasdetails [pessoa]="pessoaSelecionada" (retorno)="addLista($event)"></app-pessoasdetails>
+
+        </div><div class="modal-footer">
+        <button type="button" class="btn btn-light"(click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

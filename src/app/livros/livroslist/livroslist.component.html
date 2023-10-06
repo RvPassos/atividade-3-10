@@ -2,20 +2,36 @@
     <table class="table">
         <thead>
         <tr>
+            <th scope="col">Id</th>
             <th scope="col">Autor</th>
             <th scope="col">Titulo</th>
             <th scope="col">Ação</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let livro of lista">
+        <tr *ngFor="let livro of lista; let i = index">
+            <td>{{livro.id}}</td>
             <td>{{livro.autor}}</td>
             <td>{{livro.titulo}}</td>
-            <td><input  routerLink="/admin/livros/editar/{{livro.id}}" type="button" value="editar"></td>
+            <td><input data="livro" type="button" value="editar" (click)="abrirModalEditar(content, livro, i)"></td>
         </tr>
         </tbody>
     </table>
     <div>
-        <input routerLink="/admin/livros/novo" type="button" value="Nova Livro">
+        <input (click)="abrirModal(content)" type="button" value="Novo Livro">
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Livro</h4>
+        <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')">
+        </button>
+        </div><div class="modal-body">
+            
+            <app-livrosdetails [livro]="livroSelecionado" (retorno)="addLista($event)"></app-livrosdetails>
+
+        </div><div class="modal-footer">
+        <button type="button" class="btn btn-light"(click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
